@@ -6,6 +6,7 @@ import com.example.springpractice.entity.Member;
 import com.example.springpractice.repository.MemberRepository;
 import com.example.springpractice.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,28 +18,28 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/members")
-    public MemberResponseDto createMember(@RequestBody MemberRequestDto memberRequestDto) {
-        return memberService.save(memberRequestDto);
+    public ResponseEntity<MemberResponseDto> createMember(@RequestBody MemberRequestDto memberRequestDto) {
+        return ResponseEntity.ok(memberService.save(memberRequestDto));
     }
 
     @GetMapping("/members")
-    public List<MemberResponseDto> getMembers(){
-        return memberService.findMembers();
+    public ResponseEntity<List<MemberResponseDto>> getMembers(){
+        return ResponseEntity.ok(memberService.findMembers());
     }
 
     @GetMapping("/members/{memberId}")
-    public MemberResponseDto getMember(
+    public ResponseEntity<MemberResponseDto> getMember(
             @PathVariable Long memberId
             ){
-        return memberService.findMember(memberId);
+        return ResponseEntity.ok(memberService.findMember(memberId));
     }
 
     @PutMapping("/members/{memberId}")
-    public MemberResponseDto updateMember(
+    public ResponseEntity<MemberResponseDto> updateMember(
             @PathVariable Long memberId,
             @RequestBody MemberRequestDto memberRequestDto
     ){
-        return memberService.updateMember(memberId, memberRequestDto);
+        return ResponseEntity.ok(memberService.updateMember(memberId, memberRequestDto));
     }
 
     @DeleteMapping("/members/{memberId}")
